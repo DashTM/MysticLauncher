@@ -18,8 +18,11 @@ If you know of more effiecent ways to do things, please feel free to submit a Pu
 
 <h2>Planned Changes</h2>
 -Add detailed exception handling
+
 -Add detailed error handling
+
 -Efficiency optimizations
+
 -Quality of life features
 
 <h2>Download</h2>
