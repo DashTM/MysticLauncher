@@ -29,14 +29,11 @@ namespace Mystic_Launcher
 
             Configuration Config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
 
-
-
-           VanillaDir = Config.AppSettings.Settings["VanillaPath"].Value;
-           TBCDir = Config.AppSettings.Settings["TBCPath"].Value;
-           WotLKDir = Config.AppSettings.Settings["WotLKPath"].Value;
+            VanillaDir = Config.AppSettings.Settings["VanillaPath"].Value;
+            TBCDir = Config.AppSettings.Settings["TBCPath"].Value;
+            WotLKDir = Config.AppSettings.Settings["WotLKPath"].Value;
 
             ServerList.Items.AddRange(ConfigurationManager.AppSettings["SavedServers"].Split(','));
-
         }
 
         private void SetVanillaDir_Click(object sender, EventArgs e)
@@ -44,32 +41,7 @@ namespace Mystic_Launcher
             LoadWoWDir.ShowDialog();
             VanillaDir = LoadWoWDir.FileName;
 
-            Configuration Config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
-
-            //Checking for Vanilla directories. If they are empty or none existing the value of VanillaDir will be saved to Config.
-
-            //Exception and Error Handling
-            if (Config.AppSettings.Settings["VanillaPath"].Value == string.Empty)
-            {
-                Config.AppSettings.Settings.Add("VanillaPath", VanillaDir);
-                Config.Save(ConfigurationSaveMode.Minimal);
-            }
-            if (Config.AppSettings.Settings["VanillaPath"].Value == null)
-            {
-                Config.AppSettings.Settings.Add("VanillaPath", VanillaDir);
-                Config.Save(ConfigurationSaveMode.Minimal);
-            }
-            if (Config.AppSettings.Settings["VanillaPath"].Value == ",")
-            {
-                Config.AppSettings.Settings["VanillaPath"].Value = "";
-                Config.AppSettings.Settings.Add("VanillaPath", VanillaDir);
-                Config.Save(ConfigurationSaveMode.Minimal);
-            }
-
-            //Overwrite Currently Saved Directory
-            Config.AppSettings.Settings["VanillaPath"].Value = "";
-            Config.AppSettings.Settings.Add("VanillaPath", VanillaDir);
-            Config.Save(ConfigurationSaveMode.Minimal);
+            SetDirectory("VanillaPath", VanillaDir);
         }
 
         private void SetTBCDir_Click(object sender, EventArgs e)
@@ -77,32 +49,7 @@ namespace Mystic_Launcher
             LoadWoWDir.ShowDialog();
             TBCDir = LoadWoWDir.FileName;
 
-            Configuration Config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
-
-            //Checking for TBC directories. If they are empty or none existing the value of TBCDir will be saved to Config.
-
-            //Exception and Error Handling
-            if (Config.AppSettings.Settings["TBCPath"].Value == string.Empty)
-            {
-                Config.AppSettings.Settings.Add("TBCPath", TBCDir);
-                Config.Save(ConfigurationSaveMode.Minimal);
-            }
-            if (Config.AppSettings.Settings["TBCPath"].Value == null)
-            {
-                Config.AppSettings.Settings.Add("TBCPath", TBCDir);
-                Config.Save(ConfigurationSaveMode.Minimal);
-            }
-            if (Config.AppSettings.Settings["TBCPath"].Value == ",")
-            {
-                Config.AppSettings.Settings["TBCPath"].Value = "";
-                Config.AppSettings.Settings.Add("TBCPath", TBCDir);
-                Config.Save(ConfigurationSaveMode.Minimal);
-            }
-
-            //Overwrite Currently Saved Directory
-            Config.AppSettings.Settings["TBCPath"].Value = "";
-            Config.AppSettings.Settings.Add("TBCPath", TBCDir);
-            Config.Save(ConfigurationSaveMode.Minimal);
+            SetDirectory("TBCPath", TBCDir);
         }
 
         private void SetWotLKDir_Click(object sender, EventArgs e)
@@ -110,83 +57,72 @@ namespace Mystic_Launcher
             LoadWoWDir.ShowDialog();
             WotLKDir = LoadWoWDir.FileName;
 
+            SetDirectory("WotLKPath", WotLKDir);
+        }
+
+        private void SetDirectory(string expansionPath, string directory)
+        {
             Configuration Config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
 
-            //Checking for WotLK directories. If they are empty or none existing the value of WotLKDir will be saved to Config.
+            //Checking for directories. If they are empty or non existing the value of directory will be saved to Config.
+            if (string.IsNullOrWhiteSpace(Config.AppSettings.Settings[expansionPath].Value))
+            {
+                Config.AppSettings.Settings.Add(expansionPath, directory);
+                Config.Save(ConfigurationSaveMode.Minimal);
+            }
 
-            //Exception and Error Handling
-            if (Config.AppSettings.Settings["WotLKPath"].Value == string.Empty)
+            if (Config.AppSettings.Settings[expansionPath].Value == ",")
             {
-                Config.AppSettings.Settings.Add("WotLKPath", WotLKDir);
+                Config.AppSettings.Settings[expansionPath].Value = "";
+                Config.AppSettings.Settings.Add(expansionPath, directory);
                 Config.Save(ConfigurationSaveMode.Minimal);
             }
-            if (Config.AppSettings.Settings["WotLKPath"].Value == null)
-            {
-                Config.AppSettings.Settings.Add("WotLKPath", WotLKDir);
-                Config.Save(ConfigurationSaveMode.Minimal);
-            }
-            if (Config.AppSettings.Settings["WotLKPath"].Value == ",")
-            {
-                Config.AppSettings.Settings["WotLKPath"].Value = "";
-                Config.AppSettings.Settings.Add("WotLKPath", WotLKDir);
-                Config.Save(ConfigurationSaveMode.Minimal);
-            }
-            
+
             //Overwrite Currently Saved Directory
-            Config.AppSettings.Settings["WotLKPath"].Value = "";
-            Config.AppSettings.Settings.Add("WotLKPath", WotLKDir);
+            Config.AppSettings.Settings[expansionPath].Value = "";
+            Config.AppSettings.Settings.Add(expansionPath, directory);
             Config.Save(ConfigurationSaveMode.Minimal);
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
-            //Set Realmlist Depending on Expansion chosen
-            if (WoWVersionSelector.Text == "Vanilla")
+            //Set Realmlist and start wow.exe Depending on Expansion chosen
+            switch (WoWVersionSelector.Text)
             {
-                VanillaDir = VanillaDir.Replace(",", "");
-                string VanillaRealmListPath = VanillaDir.Replace("Wow.exe", "").Replace("WoW.exe", "").Replace("wow.exe", "");
-                System.IO.File.WriteAllText(VanillaRealmListPath + "realmlist.wtf", "set realmlist " + ServerList.Text);
+                case "Vanilla":
+                    VanillaDir = VanillaDir.Replace(",", "");//Replacing commas added to directory when key is being added to config.
+                    SetRealmList(VanillaDir);
+                    System.Diagnostics.Process.Start(VanillaDir);
+                    break;
+                case "The Burning Crusade":
+                    TBCDir = TBCDir.Replace(",", "");//Replacing commas added to directory when key is being added to config.
+                    SetRealmList(TBCDir);
+                    System.Diagnostics.Process.Start(TBCDir);
+                    break;
+                case "Wrath of the Lich King":
+                    WotLKDir = WotLKDir.Replace(",", "");//Replacing commas added to directory when key is being added to config.
+                    SetRealmList(WotLKDir, true);
+                    System.Diagnostics.Process.Start(WotLKDir);
+                    break;
             }
+        }
 
-            if (WoWVersionSelector.Text == "The Burning Crusade")
-            {
-                TBCDir = TBCDir.Replace(",", "");
-                string TBCRealmListPath = TBCDir.Replace("Wow.exe", "").Replace("WoW.exe", "").Replace("wow.exe", "");
-                System.IO.File.WriteAllText(TBCRealmListPath + "realmlist.wtf", "set realmlist " + ServerList.Text);
-            }
+        private void SetRealmList(string pathToWowExe, bool newRealmListPath = false)
+        {
+            string realmListPath = pathToWowExe.Remove(pathToWowExe.LastIndexOf(@"\") + 1);
 
-            if (WoWVersionSelector.Text == "Wrath of the Lich King")
-            {
-                WotLKDir = WotLKDir.Replace(",", "");
-                string WotLKRealmListPath = WotLKDir.Replace("Wow.exe","").Replace("WoW.exe", "").Replace("wow.exe", "");
-                System.IO.File.WriteAllText(WotLKRealmListPath + @"Data\enUS\realmlist.wtf", "set realmlist "+ServerList.Text);
-            }
+            if (newRealmListPath)
+                realmListPath += @"Data\enUS\realmlist.wtf";
+            else
+                realmListPath += "realmlist.wtf";
 
-            //Start WoW.exe based on the version selected using the ComboBox
-            if (WoWVersionSelector.Text == "Vanilla")
-            {
-                VanillaDir = VanillaDir.Replace(",", ""); //Replacing commas added to directory when key is being added to config.
-                System.Diagnostics.Process.Start(VanillaDir);
-            }
-
-            if (WoWVersionSelector.Text == "The Burning Crusade")
-            {
-                TBCDir = TBCDir.Replace(",", ""); //Replacing commas added to directory when key is being added to config.
-                System.Diagnostics.Process.Start(TBCDir);
-            }
-
-            if (WoWVersionSelector.Text == "Wrath of the Lich King")
-            {
-                WotLKDir = WotLKDir.Replace(",", ""); //Replacing commas added to directory when key is being added to config.
-                System.Diagnostics.Process.Start(WotLKDir);
-            }
-
+            File.WriteAllText(realmListPath, "set realmlist " + ServerList.Text);
         }
 
         private void AddServer_Click(object sender, EventArgs e)
         {
             //Make sure there is text inputted into the textbox to avoid blank spaces.
-            if (AddToServerList.Text == string.Empty)
+            if (string.IsNullOrWhiteSpace(AddToServerList.Text))
             {
                 MessageBox.Show("Please enter the address for a server!", "MysticLauncher Error");
             }

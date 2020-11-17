@@ -1,0 +1,12 @@
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\obj\Debug\Mystic Launcher.csprojAssemblyReference.cache
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\obj\Debug\Mystic_Launcher.MysticLauncher.resources
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\obj\Debug\Mystic Launcher.csproj.GenerateResource.cache
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\obj\Debug\Mystic_Launcher.Properties.Resources.resources
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\obj\Debug\Mystic Launcher.csproj.CoreCompileInputs.cache
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\bin\Debug\Mystic Launcher.exe.config
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\bin\Debug\Mystic Launcher.exe
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\bin\Debug\Mystic Launcher.pdb
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\bin\Debug\DarkUI.dll
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\obj\Debug\Mystic Launcher.csproj.CopyComplete
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\obj\Debug\Mystic Launcher.exe
+D:\Git\MysticLauncher\Mystic Launcher\Mystic Launcher\obj\Debug\Mystic Launcher.pdb
