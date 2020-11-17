@@ -16,6 +16,12 @@ This is the first iteration of Mystic Launcher so expect plenty of changes as ti
 
 If you know of more effiecent ways to do things, please feel free to submit a Pull Request!
 
+<h2>Planned Changes</h2>
+-Add detailed exception handling
+-Add detailed error handling
+-Efficiency optimizations
+-Quality of life features
+
 <h2>Download</h2>
 
 Download Version 1.0 [here](https://github.com/DashTM/MysticLauncher/releases/download/Release/MysticLauncherv1.zip)
