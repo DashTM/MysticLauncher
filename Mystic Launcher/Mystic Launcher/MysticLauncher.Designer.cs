@@ -163,7 +163,7 @@
             // 
             // MysticHeroImage
             // 
-            this.MysticHeroImage.Image = global::Mystic_Launcher.Properties.Resources.Mystic_Launcher;
+            this.MysticHeroImage.Image = global::Mystic_Launcher.Properties.Resources.Mystic_Launcher1;
             this.MysticHeroImage.Location = new System.Drawing.Point(172, 28);
             this.MysticHeroImage.Name = "MysticHeroImage";
             this.MysticHeroImage.Size = new System.Drawing.Size(100, 100);
