@@ -17,6 +17,7 @@ This is the first iteration of Mystic Launcher so expect plenty of changes as ti
 If you know of more effiecent ways to do things, please feel free to submit a Pull Request!
 
 <h2>Planned Changes</h2>
+
 -Add detailed exception handling
 
 -Add detailed error handling
