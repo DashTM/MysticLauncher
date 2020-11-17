@@ -2,7 +2,7 @@
 
 Mystic Launcher is a minimalistic and lightweight launcher for WoW Private Servers written in C#.
 
-![Mystic Launcher Screenshot](https://imgur.com/a/D6V6ECV)
+![Mystic Launcher Screenshot](https://i.imgur.com/TeXMvtV.png)
 
 <h2>Supported WoW Expansions</h2>
   
