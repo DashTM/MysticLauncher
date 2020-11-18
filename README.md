@@ -32,4 +32,4 @@ If you know of more effiecent ways to do things, please feel free to submit a Pu
 
 <h2>Download</h2>
 
-Download Version 1.0 [here](https://github.com/DashTM/MysticLauncher/releases/download/Release/MysticLauncherv1.zip)
+Download Version 1.0.1 [here](https://github.com/DashTM/MysticLauncher/releases/download/1.0.1/Mystic_Launcher_v1.0.1.zip)
