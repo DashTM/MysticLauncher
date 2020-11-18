@@ -7,7 +7,9 @@ Mystic Launcher is a minimalistic and lightweight launcher for WoW Private Serve
 <h2>Supported WoW Expansions</h2>
   
 Vanilla
+
 The Burning Crusade
+
 Wrath of the Lich King
 
 <h2>Details</h2>
