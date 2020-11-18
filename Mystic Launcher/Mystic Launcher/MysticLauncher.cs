@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +17,6 @@ namespace Mystic_Launcher
         string VanillaDir;
         string WotLKDir;
         string TBCDir;
-       // string AddNewServer;
-
         public MysticLauncher()
         {
             InitializeComponent();
@@ -109,14 +107,18 @@ namespace Mystic_Launcher
 
         private void SetRealmList(string pathToWowExe, bool newRealmListPath = false)
         {
-            string realmListPath = pathToWowExe.Remove(pathToWowExe.LastIndexOf(@"\") + 1);
+            if (!string.IsNullOrWhiteSpace(ServerList.Text))
+            {
 
-            if (newRealmListPath)
-                realmListPath += @"Data\enUS\realmlist.wtf";
-            else
-                realmListPath += "realmlist.wtf";
+                string realmListPath = pathToWowExe.Remove(pathToWowExe.LastIndexOf(@"\") + 1);
 
-            File.WriteAllText(realmListPath, "set realmlist " + ServerList.Text);
+                if (newRealmListPath)
+                    realmListPath += @"Data\enUS\realmlist.wtf";
+                else
+                    realmListPath += "realmlist.wtf";
+
+                File.WriteAllText(realmListPath, "set realmlist " + ServerList.Text);
+            }
         }
 
         private void AddServer_Click(object sender, EventArgs e)
