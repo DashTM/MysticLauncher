@@ -32,6 +32,8 @@ namespace Mystic_Launcher
 
             ServerList.Items.AddRange(ConfigurationManager.AppSettings["SavedServers"].Split(','));
 
+            LoadSettingsUsedLast(); //Pull data of last played expansion and server and set them on startup.
+
         }
 
         private void SetVanillaDir_Click(object sender, EventArgs e)
@@ -103,6 +105,8 @@ namespace Mystic_Launcher
                     System.Diagnostics.Process.Start(WotLKDir);
                     break;
             }
+
+            SaveSettingsUsedLast(WoWVersionSelector.Text,ServerList.Text); //Save the last played expansion and server as of the last time the game was lunached using the launcher.
         }
 
         private void SetRealmList(string pathToWowExe, bool newRealmListPath = false)
@@ -119,6 +123,32 @@ namespace Mystic_Launcher
 
                 File.WriteAllText(realmListPath, "set realmlist " + ServerList.Text);
             }
+        }
+
+        private void SaveSettingsUsedLast(string LastExpansionPlayed, string LastServerPlayed)
+        {
+            Configuration Config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+
+            //Store the name of the last played expansion in config file.
+            Config.AppSettings.Settings["LastExpansionPlayed"].Value = "";
+            Config.AppSettings.Settings.Add("LastExpansionPlayed", LastExpansionPlayed);
+
+            //Store the name of the last played server in config file.
+            Config.AppSettings.Settings["LastServerPlayed"].Value = "";
+            Config.AppSettings.Settings.Add("LastServerPlayed", LastServerPlayed);
+
+            Config.Save(ConfigurationSaveMode.Minimal);
+        }
+
+        private void LoadSettingsUsedLast()
+        {
+            Configuration Config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+
+            //Set WoWVersionSelector to the last played expansion.
+            WoWVersionSelector.Text = Config.AppSettings.Settings["LastExpansionPlayed"].Value.Replace(",", "");
+
+            //Set the ServerList to the last played server.
+            ServerList.Text = Config.AppSettings.Settings["LastServerPlayed"].Value.Replace(",", "");
         }
 
         private void AddServer_Click(object sender, EventArgs e)
